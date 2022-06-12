@@ -2,7 +2,7 @@ import os
 import pika
 import json
 import requests
-from get_text import get_text, preprocessing
+from OCR import get_latex, preprocessing
 import utils
 from dotenv import load_dotenv
 
@@ -11,8 +11,6 @@ load_dotenv()
 HOST = os.getenv("HOST")
 SENDER_QUEUE_NAME = os.getenv("SENDER_QUEUE_NAME")
 CONSUMER_QUEUE_NAME = os.getenv("CONSUMER_QUEUE_NAME")
-
-print(HOST, SENDER_QUEUE_NAME, CONSUMER_QUEUE_NAME)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(HOST))
 
@@ -23,7 +21,6 @@ rmq_channel.exchange_declare(exchange=SENDER_QUEUE_NAME, exchange_type='topic', 
 
 
 def send(message: str) -> None:
-    print(message)
     rmq_channel.basic_publish(exchange=SENDER_QUEUE_NAME, routing_key=SENDER_QUEUE_NAME, body=message)
 
 
@@ -35,7 +32,7 @@ def on_message(channel, method_frame, header_frame, body) -> None:
     rect = data["rect"]
     data.pop("sourceUploadURL")
     data.update([("data", dict().fromkeys(["text"], [""]))])
-    data["data"]["text"] = get_text(preprocessing("temp.png", [int(rect["x"]), int(rect["y"]),
+    data["data"]["text"] = get_latex(preprocessing("temp.png", [int(rect["x"]), int(rect["y"]),
                                                                int(rect["width"]), int(rect["height"])]))
     send(json.dumps(data, separators=(',', ':'), ensure_ascii=False))
 

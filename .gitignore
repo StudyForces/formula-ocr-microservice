@@ -3,3 +3,5 @@ venv
 .env
 temp.png
 __pycache__
+.vscode
+env

@@ -1,6 +1,10 @@
+--extra-index-url https://download.pytorch.org/whl/cu113
+torch
+torchvision
+torchaudio
 Pillow
-pytesseract
 opencv-python
 pika
 requests
 python-dotenv
+pix2tex
