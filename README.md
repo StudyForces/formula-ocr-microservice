@@ -1,15 +1,14 @@
-# OCR-Microservice
+# Formula-OCR-Microservice
 
-Service that can recognize text and formulas from images
+Service that can recognize formulas from images
 
 ## Requirements
-- [Tesseract](https://github.com/tesseract-ocr/tesseract)
-- [requirements](https://github.com/StudyForces/ocr-microservice/blob/main/pip-requirements.txt)
+- [requirements](https://github.com/StudyForces/formula-ocr-microservice/blob/7eca4763e7941d8737cca3a3aa295aae554735d9/requirements.txt)
 
 ## Usage
 All images must be in .png format.
 
-Set the parameters in rmq_parameters.py
+Set the required parameters in the environment variables
 
 - SENDER_QUEUE_NAME - name of the queue to be used as output
 - CONSUMER_QUEUE_NAME - name of the queue to be used as input
