@@ -31,9 +31,9 @@ def on_message(channel, method_frame, header_frame, body) -> None:
         return None
     rect = data["rect"]
     data.pop("sourceUploadURL")
-    data.update([("data", dict().fromkeys(["text"], [""]))])
-    data["data"]["text"] = get_latex(preprocessing("temp.png", [int(rect["x"]), int(rect["y"]),
-                                                               int(rect["width"]), int(rect["height"])]))
+    data.update([("data", dict().fromkeys(["latex"], [""]))])
+    data["data"]["latex"] = get_latex(preprocessing("temp.png", [int(rect["x"]), int(rect["y"]),
+                                                                 int(rect["width"]), int(rect["height"])]))
     send(json.dumps(data, separators=(',', ':'), ensure_ascii=False))
 
 
