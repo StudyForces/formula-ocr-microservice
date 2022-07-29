@@ -36,7 +36,8 @@ def on_message(channel, method_frame, header_frame, body) -> None:
     data.pop("url")
     data.update([("data", dict().fromkeys(["latex"], [""]))])
     data["data"]["latex"] = get_latex(Image.open("temp.png").crop((int(rect["x"]), int(rect["y"]),
-                                                                   int(rect["width"]), int(rect["height"]))))
+                                                                   int(rect["x"]) + int(rect["width"]),
+                                                                   int(rect["y"]) + int(rect["height"]))))
     send(json.dumps(data, separators=(',', ':'), ensure_ascii=False))
 
 
