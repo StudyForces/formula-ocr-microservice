@@ -2,8 +2,9 @@ import os
 import pika
 import json
 import requests
-from OCR import get_latex, preprocessing
 import utils
+from PIL import Image
+from OCR import get_latex
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -33,8 +34,8 @@ def on_message(channel, method_frame, header_frame, body) -> None:
     data.pop("rect")
     data.pop("url")
     data.update([("data", dict().fromkeys(["latex"], [""]))])
-    data["data"]["latex"] = get_latex(preprocessing("temp.png", [int(rect["x"]), int(rect["y"]),
-                                                                 int(rect["width"]), int(rect["height"])]))
+    data["data"]["latex"] = get_latex(Image.open("temp.png").crop((int(rect["x"]), int(rect["y"]),
+                                                                   int(rect["width"]), int(rect["height"]))))
     send(json.dumps(data, separators=(',', ':'), ensure_ascii=False))
 
 
